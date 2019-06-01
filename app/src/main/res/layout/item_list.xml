@@ -3,16 +3,30 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-    <TextView
-            android:id="@+id/pokemonName"
+    <ImageView
+            android:id="@+id/newsImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:fontFamily="sans-serif"
-            android:padding="20dp"
-            android:textStyle="normal"
-            tools:text="mdksjdjsdsjk"
+            android:layout_height="60dp"
+            tools:src="@drawable/ic_launcher_background"
     />
+
+    <TextView
+            android:id="@+id/newsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="new article"
+            android:layout_below="@id/newsImage"
+    />
+
+    <TextView
+            android:id="@+id/newsDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="12-6-1926"
+            android:layout_below="@id/newsTitle"
+    />
+
+
 </RelativeLayout>
 
 
