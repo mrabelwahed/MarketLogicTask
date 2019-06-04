@@ -1,42 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:gravity="center"
-              android:padding="15dp"
-              android:layout_height="match_parent">
-
-    <ImageView
-            android:id="@+id/pokemonImage"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            tools:src="@drawable/ic_launcher_background"
-    />
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:layout_height="match_parent">
 
 
-    <TextView
-            android:id="@+id/pokemonWeight"
+
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="30dp"
-            tools:text="weight is : sdsd30"
-            android:textStyle="normal"
-            android:textSize="20sp"
-            android:fontFamily="sans-serif"
-            android:layout_marginTop="20dp"
-    />
+            android:layout_height="match_parent">
 
-    <TextView
-            android:id="@+id/pokemonHeight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            tools:text="heigt is : 222"
-            android:textStyle="normal"
-            android:textSize="20sp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="sans-serif"
-    />
+        <ImageView
+                android:id="@+id/newsImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                tools:src="@drawable/ic_image_black_48dp"
+                android:adjustViewBounds="true"
+        />
 
 
-</LinearLayout>
+        <TextView
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                tools:text="article title"
+                android:text="Title"
+                android:textStyle="bold|italic"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif"
+                android:layout_marginTop="20dp"/>
+
+        <TextView
+                android:id="@+id/newsTitle"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                tools:text="article title"
+                android:textStyle="normal|italic"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif"
+                android:layout_marginTop="20dp"
+        />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:text="news Descreption"
+                android:textStyle="bold|italic"
+                android:text="Description"
+                android:textSize="20sp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="sans-serif"
+        />
+
+        <TextView
+                android:id="@+id/newsDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:text="news Descreption"
+                android:textStyle="normal"
+                android:textSize="20sp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="sans-serif"
+        />
+
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:text="news Content"
+                android:text="Content"
+                android:textStyle="bold|italic"
+                android:textSize="20sp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="sans-serif"/>
+
+        <TextView
+                android:id="@+id/newsContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:text="news Content"
+                android:textStyle="normal"
+                android:textSize="20sp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="sans-serif"
+        />
+
+        <TextView
+                android:id="@+id/newsSource"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:text="View Source"
+                android:text="View Source"
+                android:textStyle="bold|italic"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="sans-serif"
+        />
+
+
+    </LinearLayout>
+</ScrollView>

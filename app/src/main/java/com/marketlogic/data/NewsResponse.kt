@@ -1,3 +1,5 @@
 package com.marketlogic.data
 
-data class NewsResponse (val articles:ArrayList<Article>)
+import java.io.Serializable
+
+data class NewsResponse(val status:String,val articles: ArrayList<Article>):Serializable

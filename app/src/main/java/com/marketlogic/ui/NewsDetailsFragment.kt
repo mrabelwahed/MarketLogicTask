@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.marketlogic.NEWS_DETAILS_KEY
 import com.marketlogic.R
-import com.marketlogic.data.PokemonDetails
+import com.marketlogic.data.Article
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_news_details.*
+import android.content.Intent
+import android.net.Uri
 
-class PokemonDetailsFragment : Fragment() {
+
+class NewsDetailsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_news_details, container, false)
@@ -19,27 +22,34 @@ class PokemonDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val id = arguments?.getInt(NEWS_DETAILS_KEY)
-        // id?.let { getPokemonDetails(it) }
+        val article = arguments?.getSerializable(NEWS_DETAILS_KEY) as Article
+        article?.let { getNewsDetails(it) }
     }
 
-//    fun getPokemonDetails(id: Int) {
-//        if (isVisible) {
-//            (activity as MainActivity).getViewModel().getPokemonDetails(id)
-//            observePokemonDetails()
-//        }
-//
-//    }
-//
-//    fun observePokemonDetails() {
-//        (activity as MainActivity).getViewModel().getLivePokemonDetails().observe(this, Observer {
-//            setData(it)
-//        })
-//    }
-
-    fun setData(response: PokemonDetails?) {
-        Picasso.get().load(response?.sprites?.front_default).into(pokemonImage)
-        pokemonWeight.text = "Weight is :".plus(response?.weight.toString())
-        pokemonHeight.text = "Height is :".plus(response?.height.toString())
+    fun getNewsDetails(article: Article) {
+        if (isVisible) {
+            setData(article)
+        }
     }
+
+
+    fun setData(article: Article) {
+        Picasso.get().load(article.urlToImage).placeholder(R.drawable.ic_image_black_48dp).into(newsImage)
+        newsTitle.text = article.title
+        newsDescription.text = article.description?:"No Description"
+        newsContent.text = article.content?:"No Content"
+
+        if (article.url.isNullOrEmpty())
+            newsSource.visibility = View.GONE
+
+        newsSource.setOnClickListener{
+            val browserIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(article.url)
+            )
+            startActivity(browserIntent)
+        }
+    }
+
+
 }

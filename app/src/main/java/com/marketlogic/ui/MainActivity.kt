@@ -5,7 +5,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.marketlogic.NEWS_DETAILS_KEY
 import com.marketlogic.R
+import com.marketlogic.data.Article
+import com.marketlogic.data.NewsResponse
 import com.marketlogic.viewmodel.NewsviewModel
+import io.reactivex.Flowable
 
 
 class MainActivity : BaseActivity() {
@@ -13,32 +16,30 @@ class MainActivity : BaseActivity() {
 
     override fun getLayoutById() = R.layout.activity_main
     private val newsListFragment = NewsListFragment()
-    private val pokemonDetailsFragment = PokemonDetailsFragment()
+    private val newsDetailsFragment = NewsDetailsFragment()
 
     override fun initUI() {
         viewModel = ViewModelProviders.of(this, viewModelFactory)[NewsviewModel::class.java]
         supportFragmentManager.beginTransaction().add(R.id.container, newsListFragment).commit()
     }
 
-    fun observePokemonList() {
-        viewModel.getLiveNews().observe(this, Observer {
-            newsListFragment.setData(it)
-        })
-    }
+//    fun observeNewsList() {
+//        viewModel.getLiveNews().observe(this, Observer {
+//            newsListFragment.setData(it)
+//        })
+//    }
 
 
-    fun getPokemonList() {
-        viewModel.getPokemonList()
-    }
 
-    fun getPokemonDetails(id: Int) {
+
+    fun getNewsDetails(article: Article) {
 
         val bundle = Bundle()
-        bundle.putInt(NEWS_DETAILS_KEY, id)
-        pokemonDetailsFragment.arguments = bundle
+        bundle.putSerializable(NEWS_DETAILS_KEY, article)
+        newsDetailsFragment.arguments = bundle
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, pokemonDetailsFragment)
+            .replace(R.id.container, newsDetailsFragment)
             .addToBackStack(null)
             .commit()
 

@@ -6,8 +6,10 @@ import io.reactivex.schedulers.Schedulers
 
 class NewsUsecase(private val repository: NewsRepository) {
 
-    fun getNewsList() = repository.getNewsList()
+    fun getNewsList(
+        query: String, country: String, apiKey: String,
+        page: Int, pageSize: Int) = repository.getNewsList(query, country, apiKey, page, pageSize)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
 
-   }
+}

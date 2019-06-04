@@ -1,49 +1,71 @@
 package com.marketlogic.ui
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.marketlogic.R
 import com.marketlogic.data.Article
-import com.marketlogic.data.Pokemon
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_list.view.*
+import java.text.SimpleDateFormat
+import java.util.*
+import android.util.DisplayMetrics
+import android.content.res.Resources
 
-class NewsListAdapter : RecyclerView.Adapter<NewsListAdapter.PokemonViewHolder>() {
+
+class NewsListAdapter : RecyclerView.Adapter<NewsListAdapter.NewsViewHolder>() {
     val newsList = ArrayList<Article>()
     lateinit var listener: OnClickListener
+    lateinit var context:Context
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
-        val view  = LayoutInflater.from(parent.context).inflate(R.layout.item_list,null)
-        return PokemonViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
+        context = parent.context
+        val view = LayoutInflater.from(context).inflate(R.layout.item_list, null)
+        return NewsViewHolder(view)
     }
 
     override fun getItemCount() = newsList.size
 
-    override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         holder.bindNews(newsList[position])
         holder.itemView.setOnClickListener {
-         listener.onClick(position,it)
+            listener.onClick(position, it)
         }
     }
 
 
-    class  PokemonViewHolder(view: View) : RecyclerView.ViewHolder(view){
-        fun bindNews(article: Article){
+    class NewsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val newsImage = view.newsImage
+        fun bindNews(article: Article) {
             itemView.newsTitle.text = article.title
-            itemView.newsDate.text = article.publishedAt
-            Picasso.get().load(article.urlToImage).into(itemView.newsImage)
+            itemView.newsDate.text = formateDate(article.publishedAt)
+            val width = Resources.getSystem().getDisplayMetrics().widthPixels
+
+            Picasso.get().load(article.urlToImage).resize(width,width/2).placeholder(com.marketlogic.R.drawable.ic_image_black_48dp)
+                .into(newsImage)
+        }
+
+        fun formateDate(dateString: String): String {
+            val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US)
+            val date = format.parse(dateString)
+            val dateFormatter = SimpleDateFormat("dd MMM , yyyy")
+            return dateFormatter.format(date)
         }
     }
 
-    fun addPokmons(list: ArrayList<Article>){
-        newsList.clear()
+    fun addNews(list: ArrayList<Article>) {
         newsList.addAll(list)
         notifyDataSetChanged()
     }
 
-    fun setClickListener(listener: OnClickListener){
+    fun clear(){
+        newsList.clear()
+        notifyDataSetChanged()
+    }
+
+    fun setClickListener(listener: OnClickListener) {
         this.listener = listener
     }
 
